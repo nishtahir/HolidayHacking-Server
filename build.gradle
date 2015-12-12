@@ -4,6 +4,7 @@ plugins {
 
 apply plugin: 'com.moowork.node'
 apply plugin: 'groovy'
+apply plugin: 'java'
 
 node {
     version = '0.12.2'
@@ -13,6 +14,12 @@ node {
 
 repositories {
     jcenter()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class' : 'com.nishtahir.holidayhacking.Server'
+    }
 }
 
 task npmCacheConfig(type: NpmTask) {
@@ -49,6 +56,10 @@ task bowerSync(type: Sync) {
 task bowerPackages() {
     dependsOn bowerSync
 }
+
+clean.delete << file('src/main/resources/public/bower_components')
+clean.delete << file('node_modules')
+clean.delete << file('bower_components')
 
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.4.5'
