@@ -1,10 +1,11 @@
 plugins {
     id "com.moowork.node" version "0.11"
+    id 'groovy' // or 'groovy' Must be explicitly applied
+    id 'com.github.johnrengelman.shadow' version '1.2.2'
 }
 
 apply plugin: 'com.moowork.node'
 apply plugin: 'groovy'
-apply plugin: 'java'
 
 node {
     version = '0.12.2'
@@ -18,8 +19,13 @@ repositories {
 
 jar {
     manifest {
-        attributes 'Main-Class' : 'com.nishtahir.holidayhacking.Server'
+        attributes 'Main-Class': 'com.nishtahir.holidayhacking.Server'
     }
+}
+
+task( hello, dependsOn: jar, type: JavaExec ) {
+    main = 'hello.world.HelloWorld'
+    classpath = sourceSets.main.runtimeClasspath
 }
 
 task npmCacheConfig(type: NpmTask) {
