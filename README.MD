@@ -1,5 +1,7 @@
 #HolidayHacking (Server)
 
+![Build status](https://travis-ci.org/nishtahir/HolidayHacking-Server.svg?branch=master)
+
 Small project to allow random people on the internet control things in my home.
 
 #Setup
