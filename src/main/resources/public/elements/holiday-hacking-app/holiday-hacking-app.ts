@@ -20,6 +20,7 @@ class HolidayHackingApp extends polymer.Base
         console.log(response);
     }
 
+    @listen("submitFeedback.tap")
     sendFeedback() {
        console.log('firing ajax');
        this.$.ajax.generateRequest();

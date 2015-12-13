@@ -26,6 +26,7 @@ var HolidayHackingApp = (function (_super) {
         console.log(response);
     };
     HolidayHackingApp.prototype.sendFeedback = function () {
+        console.log('firing ajax');
         this.$.ajax.generateRequest();
     };
     __decorate([
@@ -34,6 +35,9 @@ var HolidayHackingApp = (function (_super) {
     __decorate([
         observe("toggle")
     ], HolidayHackingApp.prototype, "toggleObserver");
+    __decorate([
+        listen("submitFeedback.tap")
+    ], HolidayHackingApp.prototype, "sendFeedback");
     HolidayHackingApp = __decorate([
         ///<reference path="../../bower_components/polymer-ts/polymer-ts.d.ts"/>
         component("holiday-hacking-app")
