@@ -16,9 +16,15 @@ class HolidayHackingApp extends polymer.Base
         this.$.ajax.generateRequest();
     }
 ​
-    handleResponse(e, response){
+    handleFeedbackResponse(e, response){
         console.log(response);
     }
+
+    sendFeedback() {
+       console.log('firing ajax');
+       this.$.ajax.generateRequest();
+    }
+
 }
 
 HolidayHackingApp.register();

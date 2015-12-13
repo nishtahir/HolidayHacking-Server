@@ -22,8 +22,11 @@ var HolidayHackingApp = (function (_super) {
     HolidayHackingApp.prototype.sendRequest = function () {
         this.$.ajax.generateRequest();
     };
-    HolidayHackingApp.prototype.handleResponse = function (e, response) {
+    HolidayHackingApp.prototype.handleFeedbackResponse = function (e, response) {
         console.log(response);
+    };
+    HolidayHackingApp.prototype.sendFeedback = function () {
+        this.$.ajax.generateRequest();
     };
     __decorate([
         property({ type: Boolean, value: false })
