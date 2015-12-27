@@ -5,14 +5,29 @@ class HolidayHackingApp extends polymer.Base
 {
 
     @property({type: Boolean, value: false})
-    public toggle: boolean;
+    public led1: boolean;
 ​
-    @observe("toggle")
-    toggleObserver()
+    @property({type: Boolean, value: false})
+    public led2: boolean;
+​
+    @observe("led1")
+    led1Observer()
     {
       var out = {
-        type : 'led',
-        state : this.toggle
+        type : 'led1',
+        state : this.led1
+      }
+
+      var xws: any = document.querySelector('x-websocket');
+      xws.send(JSON.stringify(out));
+    }
+
+    @observe("led2")
+    led2Observer()
+    {
+      var out = {
+        type : 'led2',
+        state : this.led2
       }
 
       var xws: any = document.querySelector('x-websocket');
@@ -25,8 +40,11 @@ class HolidayHackingApp extends polymer.Base
       //quiet my linter
       var evt: any = event;
       var obj = JSON.parse(evt.detail.data)
-      if(obj.type == 'led'){
-        this.toggle = obj.state;
+      if(obj.type == 'led1'){
+        this.led1 = obj.state;
+      }
+      if(obj.type == 'led2'){
+        this.led2 = obj.state;
       }
     }
 ​

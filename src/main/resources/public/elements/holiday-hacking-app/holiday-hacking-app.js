@@ -17,10 +17,18 @@ var HolidayHackingApp = (function (_super) {
     function HolidayHackingApp() {
         _super.apply(this, arguments);
     }
-    HolidayHackingApp.prototype.toggleObserver = function () {
+    HolidayHackingApp.prototype.led1Observer = function () {
         var out = {
-            type: 'led',
-            state: this.toggle
+            type: 'led1',
+            state: this.led1
+        };
+        var xws = document.querySelector('x-websocket');
+        xws.send(JSON.stringify(out));
+    };
+    HolidayHackingApp.prototype.led2Observer = function () {
+        var out = {
+            type: 'led2',
+            state: this.led2
         };
         var xws = document.querySelector('x-websocket');
         xws.send(JSON.stringify(out));
@@ -28,8 +36,11 @@ var HolidayHackingApp = (function (_super) {
     HolidayHackingApp.prototype.wsMessageHandler = function () {
         var evt = event;
         var obj = JSON.parse(evt.detail.data);
-        if (obj.type == 'led') {
-            this.toggle = obj.state;
+        if (obj.type == 'led1') {
+            this.led1 = obj.state;
+        }
+        if (obj.type == 'led2') {
+            this.led2 = obj.state;
         }
     };
     HolidayHackingApp.prototype.sendRequest = function () {
@@ -48,13 +59,23 @@ var HolidayHackingApp = (function (_super) {
     __decorate([
         property({ type: Boolean, value: false }), 
         __metadata('design:type', Boolean)
-    ], HolidayHackingApp.prototype, "toggle", void 0);
+    ], HolidayHackingApp.prototype, "led1", void 0);
     __decorate([
-        observe("toggle"), 
+        property({ type: Boolean, value: false }), 
+        __metadata('design:type', Boolean)
+    ], HolidayHackingApp.prototype, "led2", void 0);
+    __decorate([
+        observe("led1"), 
         __metadata('design:type', Function), 
         __metadata('design:paramtypes', []), 
         __metadata('design:returntype', void 0)
-    ], HolidayHackingApp.prototype, "toggleObserver", null);
+    ], HolidayHackingApp.prototype, "led1Observer", null);
+    __decorate([
+        observe("led2"), 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', []), 
+        __metadata('design:returntype', void 0)
+    ], HolidayHackingApp.prototype, "led2Observer", null);
     __decorate([
         listen("message"), 
         __metadata('design:type', Function), 
