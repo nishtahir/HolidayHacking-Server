@@ -3,13 +3,31 @@
 @component("holiday-hacking-app")
 class HolidayHackingApp extends polymer.Base
 {
+
     @property({type: Boolean, value: false})
     public toggle: boolean;
 ​
     @observe("toggle")
     toggleObserver()
     {
-        if(this.toggle) this.sendRequest();
+      var out = {
+        type : 'led',
+        state : this.toggle
+      }
+
+      var xws: any = document.querySelector('x-websocket');
+      xws.send(JSON.stringify(out));
+    }
+
+    @listen("message")
+    wsMessageHandler(){
+      //This is probably weird syntax, but i did this to
+      //quiet my linter
+      var evt: any = event;
+      var obj = JSON.parse(evt.detail.data)
+      if(obj.type == 'led'){
+        this.toggle = obj.state;
+      }
     }
 ​
     sendRequest(){
@@ -24,6 +42,11 @@ class HolidayHackingApp extends polymer.Base
     sendFeedback() {
        console.log('firing ajax');
        this.$.ajax.generateRequest();
+    }
+
+    @listen("open")
+    open(){
+      console.log("opened socket");
     }
 
 }

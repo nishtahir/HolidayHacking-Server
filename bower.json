@@ -22,6 +22,12 @@
     "paper-elements": "~1.0.6",
     "paper-card": "PolymerElements/paper-card#~1.0.8",
     "iron-ajax": "PolymerElements/iron-ajax#~1.1.1",
-    "paper-toggle-button": "PolymerElements/paper-toggle-button#~1.0.11"
+    "paper-toggle-button": "PolymerElements/paper-toggle-button#~1.0.11",
+    "x-websocket": "mdrmtz/x-websocket#~1.0.3"
+  },
+  "resolutions": {
+    "polymer": "~1.2.3",
+    "webcomponentsjs": ">=0.7.10",
+    "core-component-page": "^0.5"
   }
 }

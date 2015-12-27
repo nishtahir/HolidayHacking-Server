@@ -3,9 +3,10 @@ package com.nishtahir.holidayhacking
 import com.j256.ormlite.jdbc.JdbcConnectionSource
 import com.j256.ormlite.support.ConnectionSource
 import com.j256.ormlite.table.TableUtils
+import com.nishtahir.holidayhacking.controller.DeviceController
 import com.nishtahir.holidayhacking.controller.FeedbackController
 import com.nishtahir.holidayhacking.model.Feedback
-import com.nishtahir.holidayhacking.service.FeedbackService;
+import com.nishtahir.holidayhacking.service.FeedbackService
 import spark.Spark
 
 class Server {
@@ -17,6 +18,7 @@ class Server {
         initCli(args)
         initDb();
 
+        new DeviceController().init()
         Spark.get '/', { req, res -> res.redirect("/index.html") }
         new FeedbackController(service: new FeedbackService()).init()
     }
@@ -41,9 +43,9 @@ class Server {
     /**
      * Initialize SQLite database
      */
-    void initDb() {
+    static void initDb() {
         Class.forName("org.sqlite.JDBC")
-        connectionSource = new JdbcConnectionSource('jdbc:sqlite:holiday_hacking.db')
+        connectionSource = new JdbcConnectionSource('jdbc:sqlite:holiday_hacking.sqlite')
         TableUtils.createTableIfNotExists(connectionSource, Feedback.class)
 
     }

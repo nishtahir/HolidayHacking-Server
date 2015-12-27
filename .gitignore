@@ -151,3 +151,4 @@ bower_components/
 
 # =========== Database =========== #
 *.db
+*.sqlite

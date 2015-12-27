@@ -8,8 +8,8 @@ apply plugin: 'com.moowork.node'
 apply plugin: 'groovy'
 
 node {
-    version = '0.12.2'
-    npmVersion = '2.7.5'
+    version = '5.3.0'
+    npmVersion = '3.3.12'
     download = true
 }
 
@@ -23,8 +23,8 @@ jar {
     }
 }
 
-task( hello, dependsOn: jar, type: JavaExec ) {
-    main = 'hello.world.HelloWorld'
+task( startServer, dependsOn: jar, type: JavaExec ) {
+    main = 'com.nishtahir.holidayhacking.world.HelloWorld'
     classpath = sourceSets.main.runtimeClasspath
 }
 
