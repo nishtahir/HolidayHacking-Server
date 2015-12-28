@@ -16,22 +16,35 @@ var HolidayHackingApp = (function (_super) {
     __extends(HolidayHackingApp, _super);
     function HolidayHackingApp() {
         _super.apply(this, arguments);
+        this.socketIsOpen = false;
     }
     HolidayHackingApp.prototype.led1Observer = function () {
         var out = {
             type: 'led1',
             state: this.led1
         };
-        var xws = document.querySelector('x-websocket');
-        xws.send(JSON.stringify(out));
+        try {
+            var xws = document.querySelector('x-websocket');
+            if (xws != null && this.socketIsOpen == true) {
+                xws.send(JSON.stringify(out));
+            }
+        }
+        catch (Error) {
+        }
     };
     HolidayHackingApp.prototype.led2Observer = function () {
         var out = {
             type: 'led2',
             state: this.led2
         };
-        var xws = document.querySelector('x-websocket');
-        xws.send(JSON.stringify(out));
+        try {
+            var xws = document.querySelector('x-websocket');
+            if (xws != null && this.socketIsOpen == true) {
+                xws.send(JSON.stringify(out));
+            }
+        }
+        catch (Error) {
+        }
     };
     HolidayHackingApp.prototype.wsMessageHandler = function () {
         var evt = event;
@@ -54,6 +67,7 @@ var HolidayHackingApp = (function (_super) {
         this.$.ajax.generateRequest();
     };
     HolidayHackingApp.prototype.open = function () {
+        this.socketIsOpen = true;
         console.log("opened socket");
     };
     __decorate([

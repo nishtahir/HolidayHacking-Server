@@ -1,8 +1,9 @@
 ///<reference path="../../bower_components/polymer-ts/polymer-ts.d.ts"/>
 
 @component("holiday-hacking-app")
-class HolidayHackingApp extends polymer.Base
-{
+class HolidayHackingApp extends polymer.Base {
+
+    socketIsOpen : boolean = false;
 
     @property({type: Boolean, value: false})
     public led1: boolean;
@@ -17,9 +18,14 @@ class HolidayHackingApp extends polymer.Base
         type : 'led1',
         state : this.led1
       }
-
-      var xws: any = document.querySelector('x-websocket');
-      xws.send(JSON.stringify(out));
+      try {
+        var xws: any = document.querySelector('x-websocket');
+        if(xws != null && this.socketIsOpen == true){
+          xws.send(JSON.stringify(out));
+        }
+      } catch (Error){
+        //FIXME Do something about this
+      }
     }
 
     @observe("led2")
@@ -30,8 +36,14 @@ class HolidayHackingApp extends polymer.Base
         state : this.led2
       }
 
-      var xws: any = document.querySelector('x-websocket');
-      xws.send(JSON.stringify(out));
+      try {
+        var xws: any = document.querySelector('x-websocket');
+        if(xws != null && this.socketIsOpen == true){
+          xws.send(JSON.stringify(out));
+        }
+      } catch (Error){
+        //FIXME Do something about this
+      }
     }
 
     @listen("message")
@@ -64,6 +76,7 @@ class HolidayHackingApp extends polymer.Base
 
     @listen("open")
     open(){
+      this.socketIsOpen = true;
       console.log("opened socket");
     }
 
